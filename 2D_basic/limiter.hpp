@@ -1,6 +1,7 @@
-#include "param.hpp"
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+#include "param.hpp"
 inline double sign(double a, double b) { return( (b < 0.0) ? (-a) : a ); }
 
 using namespace param;
@@ -39,7 +40,7 @@ void limiter( double *wk, double *wL, double *wR,
 	  ij = j*ix+i;
 	  gA = wk[ij]   - wk[ij-1];
 	  gB = wk[ij+1] - wk[ij];
-	  grad = (sign(0.25,gA)+sign(0.25,gB))*MIN(ABS(gA),ABS(gB));
+	  grad = (sign(0.25,gA)+sign(0.25,gB))*MIN(fabs(gA),fabs(gB));
 	  wR[ij-1] = wk[ij] - grad;
 	  wL[ij]   = wk[ij] + grad;
 	}
@@ -55,7 +56,7 @@ void limiter( double *wk, double *wL, double *wR,
 	for(i=is; i<ie; i++){
 	  gA = wk[INDEX(j,i)]   - wk[INDEX(j-1,i)];
 	  gB = wk[INDEX(j+1,i)] - wk[INDEX(j,i)];
-	  grad = (sign(0.25,gA)+sign(0.25,gB))*MIN(ABS(gA),ABS(gB));
+	  grad = (sign(0.25,gA)+sign(0.25,gB))*MIN(fabs(gA),fabs(gB));
 	  wR[INDEX(j-1,i)] = wk[INDEX(j,i)] - grad;
 	  wL[INDEX(j,i)]   = wk[INDEX(j,i)] + grad;
 	}

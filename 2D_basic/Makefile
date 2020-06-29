@@ -1,9 +1,9 @@
 CC = g++
-CFLAGS= -Wall -O2 -lm
+CFLAGS = -Wall -O2 -lm
 
 OBJS = model.o bc.o flux_solver.o
 
-all: run
+all : run
 
 run : main.o $(OBJS)
 	$(CC) main.o $(OBJS) -o a.out $(CFLAGS)

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "param.hpp"
 
 using namespace param;
@@ -30,7 +31,7 @@ void set_dt( double **U, double **V, double *vmax, double *dt,
       vfy = sqrt( ( (f1+B2) + sqrt(MAX( (f1+B2)*(f1+B2)-f2, 0.0 ))) / ( 2*U[ro][ij] ));
 
       // max speed of MHD waves
-      vtmp[ij] = MAX( ABS( V[vx][ij] ) + vfx, ABS( V[vy][ij] + vfy ));
+      vtmp[ij] = MAX( fabs( V[vx][ij] ) + vfx, fabs( V[vy][ij] + vfy ));
       *vmax = MAX( vtmp[ij], *vmax );
     }
   }
