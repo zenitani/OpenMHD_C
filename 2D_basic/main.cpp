@@ -97,7 +97,7 @@ int main( void ) {
       break;
     }
     set_dt(U,V,&ch,&dt,dx,cfl,ix,jx);
-    glm_ss(U,ch,dt,ix,jx);
+    glm_ss2(U,ch,dt,ix,jx);
 
     limiter(V[vx],VL[vx],VR[vx],ix,jx,1,lm_type);
     limiter(V[vy],VL[vy],VR[vy],ix,jx,1,lm_type);
@@ -182,7 +182,7 @@ int main( void ) {
 
     rk_tvd22(U,U1,F,G,dt,dx,ix,jx);
 
-    glm_ss(U,ch,dt,ix,jx);
+    glm_ss2(U,ch,dt,ix,jx);
     bc(U,ix,jx);
     t += dt;
 
