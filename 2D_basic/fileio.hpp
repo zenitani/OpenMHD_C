@@ -10,7 +10,7 @@ void fileio_output( char filename[], double t, double x[], double y[],
   FILE *fp;
   const int ijx = ix*jx;
 
-  if(( fp=fopen(filename,"w") )==NULL ){
+  if(( fp=fopen(filename,"wb") )==NULL ){
     fprintf( stderr, "cannot open file: %s\n", filename );
     exit(-1);
   }

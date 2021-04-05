@@ -17,7 +17,7 @@ void flux_solver(double **F, double **VL, double **VR,
 
 using namespace param;
 
-int main( void ) {
+int main( int argc, char **argv ) {
   
   const int ix = 200 + 2;
   const int jx = 200 + 2;
