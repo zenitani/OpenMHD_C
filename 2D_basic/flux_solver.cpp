@@ -3,12 +3,13 @@
 using namespace param;
 
 void flux_solver(double **F, double **VL, double **VR,
-		 const int ix, const int jx, const int dir, const int type)
+		 const double ch, const int ix, const int jx, const int dir, const int type)
 {
   const double EPS = 1e-8;
   const double r1 = 1.0 / ( param::gamma - 1.0 );
   //const double r2 = param::gamma / ( param::gamma - 1.0 );
-  const int ijx = ix*jx;
+  const int    ijx = ix*jx;
+  const double ch2 = ch*ch;
   int i,j,k,ij;
   int is=0, ie=ix-1, js=0, je=jx-1;
   int vn, vt1, vt2, mn, mt1, mt2, bn, bt1, bt2;
@@ -193,7 +194,9 @@ void flux_solver(double **F, double **VL, double **VR,
 	F[bt1][ij]= btu*vnc-bnc*vtu;
 	F[bt2][ij] = buu*vnc-bnc*vuu;
 	F[en][ij] = (enu+ptc)*vnc-bnc*(vtu*btu+vuu*buu);
-
+	/* GLM fluxes */
+	F[bn][ij] = 0.5*( VL[ps][ij] + VR[ps][ij] - ch*( VR[bn][ij]-VL[bn][ij] ) );
+	F[ps][ij] = 0.5*( ch2*( VL[bn][ij]+VR[bn][ij] ) - ch*( VR[ps][ij]-VL[ps][ij] ) );
       }
     }
 

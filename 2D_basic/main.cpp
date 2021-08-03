@@ -12,7 +12,7 @@
 void model( double **U, double **V, double *x, double *y, double *dx, const int ix, const int jx);
 void bc( double **U, const int ix, const int jx );
 void flux_solver(double **F, double **VL, double **VR,
-		 const int ix, const int jx, const int dir, const int type);
+		 const double ch, const int ix, const int jx, const int dir, const int type);
 // end prototypes
 
 using namespace param;
@@ -115,8 +115,7 @@ int main( int argc, char **argv ) {
  	VL[k][j*ix+0]    = VL[k][j*ix+ix-2];
       }
     }
-    flux_solver(F,VL,VR,ix,jx,1,flux_type);
-    flux_glm(F,VL,VR,ch,ix,jx,1);
+    flux_solver(F,VL,VR,ch,ix,jx,1,flux_type);
 
     limiter(V[vx],VL[vx],VR[vx],ix,jx,2,lm_type);
     limiter(V[vy],VL[vy],VR[vy],ix,jx,2,lm_type);
@@ -134,8 +133,7 @@ int main( int argc, char **argv ) {
  	VR[k][(jx-2)*ix+i] = VR[k][i];
       }
     }
-    flux_solver(G,VL,VR,ix,jx,2,flux_type);
-    flux_glm(G,VL,VR,ch,ix,jx,2);
+    flux_solver(G,VL,VR,ch,ix,jx,2,flux_type);
 
     rk_tvd21(U,U1,F,G,dt,dx,ix,jx);
 
@@ -158,8 +156,7 @@ int main( int argc, char **argv ) {
  	VL[k][j*ix+0]    = VL[k][j*ix+ix-2];
       }
     }
-    flux_solver(F,VL,VR,ix,jx,1,flux_type);
-    flux_glm(F,VL,VR,ch,ix,jx,1);
+    flux_solver(F,VL,VR,ch,ix,jx,1,flux_type);
 
     limiter(V[vx],VL[vx],VR[vx],ix,jx,2,lm_type);
     limiter(V[vy],VL[vy],VR[vy],ix,jx,2,lm_type);
@@ -177,8 +174,7 @@ int main( int argc, char **argv ) {
  	VR[k][(jx-2)*ix+i] = VR[k][i];
       }
     }
-    flux_solver(G,VL,VR,ix,jx,2,flux_type);
-    flux_glm(G,VL,VR,ch,ix,jx,2);
+    flux_solver(G,VL,VR,ch,ix,jx,2,flux_type);
 
     rk_tvd22(U,U1,F,G,dt,dx,ix,jx);
 

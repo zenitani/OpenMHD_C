@@ -13,3 +13,4 @@ run : main.o $(OBJS)
 
 clean : 
 	rm -f *.out *.o data/*.dat
+	rm -rf __pycache__/
